@@ -47,7 +47,22 @@ On the main explore page, there are tabs displaying trails in sorted ranked list
 \subsubsection{Real time Search}
 Users should also be able to search for specific trails and users. The system offers the capability of real time searches of trails and users. To do this, they server will need to be queried as the user types in the search string, creating a performance bottleneck. Angular comes built in with a technology called RxJs that allows us to alleviate this bottleneck.
 
-RxJs is a library from ReactiveX built on the Reactive programming paradigm \cite{wan2000functional}.
+RxJs is a Javascript library from ReactiveX built on the Reactive programming paradigm \cite{wan2000functional}. It's an API for asynchronous programming with observable streams \cite{reactivex2018main}. It allows us to treat our user input as data streams, that we can subscribe to and manipulate before sending the request to the server. ReactiveX provides us with operators to help improve the efficiency of our real time search.
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\textwidth]{debounce-time.png}
+    \caption{Debounce Time Operator}
+    \label{fig:debounceTime}
+\end{figure}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\textwidth]{distinctUntilChanged.png}
+    \caption{Distinct until changed}
+    \label{fig:distinctUntilChanged}
+\end{figure}
+
 
 \subsection{Feed page}
 
