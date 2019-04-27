@@ -4,7 +4,7 @@ To build Offroads, many technologies needed to be harnessed in order to produce 
 \section{Overview}
 The client of the web application (including the trail interface described in chapter \ref{chap:TrailInterface}) are created with Angular. The client sends to and retrieves data from a GraphQl Server. The GraphQl Server is connected to a MySQl database. Prisma provides a GraphQl \acrfull{dal} to simplify access to the data stored in the database. This overall structure can be seen in \autoref{fig:graphArchitecture}.
 
-\begin{figure}[ht]
+\begin{figure}[htb!]
     \centering
     \includegraphics[width=\textwidth]{graphql-architecture.jpg}
     \caption{Overall Architecture of the web application}
@@ -14,11 +14,38 @@ The client of the web application (including the trail interface described in ch
 Our server responds with data written in \acrfull{json} format.
 
 \section{GraphQL Backend}
+GraphQL supports 3 main operations
+\begin{itemize}
+    \item Queries: reading data (analogous to GET requests from \acrshort{rest})
+    \item Mutations: modifying data (analogous to POST and PUT request from \acrshort{rest}), and,
+    \item Subscriptions: subscribing to real-time changes to data.
+\end{itemize}
 
-\subsection{}
+Whenever the client sends any of the above operations, the client also defines the shape of the data it wants to be returned. This then has to be parsed by the GraphQL who uses resolver functions to retrieve the data the client requests for and stitches them in the shape requested. This allows for a GraphQl server to have multiple data sources.
+
+\subsection{GraphQL resolver functions}
+GraphQL executes the query in the shape \cite{jonas2016graphql}. It first executes the root query and then traverses down the tree of the structure defined by the user, calling all the resolver functions needed to return the data required (see \autoref{fig:graphQlResolver}.
+
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\textwidth]{graphql-resolver.png}
+    \caption{GraphQL resolver function}
+    \label{fig:graphQlResolver}
+\end{figure}
+
+This benefit to the client comes with its own complexities. As we use an SQL database, having to write queries for each resolver function that needs to be called can become counter intuitive to the advantages provided. This is why we use Prisma as a \acrfull{dal} between our server and our database.
 
 \subsection{Prisma Layer}
-Prisma\footnote{\url{https://www.prisma.io/}} is a data access layer that replaces traditional ORM's\footnote{Object Relational Mappings}. It sits in front of databases and provides methods that allow the server to access the database. The main feature that it provides is the Prisma Client, which is an auto-generated type-safe database client that creates the data access layer.
+Prisma\footnote{\url{https://www.prisma.io/}} is a data access layer that replaces traditional \acrfull{orm}. It sits in front of databases and provides methods that allow the server to access the database. The main feature that it provides is the Prisma Client, which is an auto-generated type-safe database client that creates the data access layer. Rather than having to write the SQL queries, Prisma reads our GraphQL schema and uses that to generate functions we can use to access our database (see \autoref{fig:prismaGenerate}).
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\textwidth]{prisma-generate.png}
+    \caption{Prisma generated sql}
+    \label{fig:prismaGenerate}
+\end{figure}
+
 
 \section{Frontend Framework} \label{sec:frontendFramework}
 There are 2 main way's to build modern web applications. It can be done using native web stack of HTML, CSS and JavaScript or (and more popularly), built using modern web application frameworks. Although there are many proponents to building with the native web stack, modern applications, such as this one, are more complex in nature and hence, require tools make it easier to build complex solutions. They also have big communities and strong documentation that make debugging easier \cite{medium:WhyModernJSFrameworkExist}.
