@@ -1,14 +1,5 @@
 \chapter{Recommender System} \label{chap:Recommender}
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=\textwidth]{long-tail.png}
-    \caption{The Long Tail Phenomenom}
-    \label{fig:longTail}
-\end{figure}
-
-To take advantage of the long tail phenomenom, we have to be able to find the niche items that are personalized to a user and return them. This is where Recommender Systems come in as an approach to solving this problem.
-
 \section{Choosing A Recommender Algorithms} \label{chooseRecAlg}
 There are multiple different ways of implementing recommender system. For a machine learning approach there, there are three popular approaches used which are
 \begin{itemize}
@@ -28,7 +19,7 @@ as shown in figure \ref{fig:recommenderSystemTypes}. The main feature that the a
 \subsubsection{Content-based filtering}
 With content-based filtering, you have meta-data about the particular items. So in our scenario we would have extra information about routes such as the type of terrain, location, elevation, etc. When a user runs a specific route, we suggest routes that are similar based on the extra meta-data provided
 
-The main problem with this approach is providing the extra meta-data on the routes. We can get some of this data automatically by e.g. Calculating elevation as shown in section \ref{elevationProfile}, however, other information like the type of terrain cannot be achieved automatically. Another way is to get user's to add the extra information on the trails, but the system would then have to trust the user's knowledge on information of trails. The system would also then require a wide variety of attributes to categorize trails as there are multiple defining features for trails. Example shown in figure \ref{fig:contentBasedFiltering}
+The main problem with this approach is providing the extra meta-data on the routes. We can get some of this data automatically by e.g. Calculating elevation as shown in section \ref{elevationProfile}, however, other information like the type of terrain cannot be achieved automatically. Another way is to get user's to add the extra information on the trails, but the system would then have to trust the user's knowledge on information of trails. The system would also then require a wide variety of attributes to categorise trails as there are multiple defining features for trails. Example shown in figure \ref{fig:contentBasedFiltering}
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{content-based-filtering.png}

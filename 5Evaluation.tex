@@ -99,6 +99,16 @@ Create another model that is trained on our movie lens dataset based on the exac
     \label{fig:graphQLDevTools}
 \end{figure}
 
+\subsection{Redux Dev Tools}
+NgRx comes with dev tools as shown in figure \ref{fig:reduxDevTools}. It allows us to track the state of our application as it evolves from initial login, to router navigations and trail changes. This record can then be used to rewind through previous actions, allowing us to provide undo and redo functionalities to the user.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{redux-dev-tools.png}
+    \caption{Redux Dev Tools}
+    \label{fig:reduxDevTools}
+\end{figure}
+
+
 \section{Unit and Integration Testing}
 To test the frontend we follow a standard industry methods of creating both unit tests and integration tests. Angular comes built with the Jasmine Testing framework\footnote{https://jasmine.github.io/}, a javascript behaviour driven framework. Jasmine also use Karma\footnote{https://karma-runner.github.io/latest/index.html}, that allows us to run the tests on the browser.
 
