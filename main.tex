@@ -1,0 +1,64 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{import}
+\usepackage[nottoc, notlof, notlot]{tocbibind}
+\usepackage{appendix}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[backend=biber,style=alphabetic,sorting=ynt]{biblatex}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{caption}
+\usepackage[acronym, toc]{glossaries}
+
+
+
+\graphicspath{ {./images/} }
+\addbibresource{refs.bib}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\title{Offroads: A Trail Running Website}
+\author{John Omokhodion Iyere }
+
+\date{April 2019}
+
+\makeglossaries
+
+\input{glossary.tex}
+
+\begin{document}
+
+\maketitle
+\include{-1Abstract}
+\include{0Acknowledgements}
+\tableofcontents
+\listoffigures
+\listoftables
+\listoflistings
+
+\newpage
+
+\include{1Context}
+\include{2Background}
+\include{2TrailInterface}
+\include{3Architecture}
+\include{4Recommender}
+\include{5Evaluation}
+\include{6Reflections}
+\include{7Conclusion}
+
+
+\printglossary
+\printglossary[type=\acronymtype]
+
+\printbibliography[heading=bibintoc]
+
+\begin{appendices}
+    \include{appendix1}
+    \include{appendix2}
+\end{appendices}
+\end{document}

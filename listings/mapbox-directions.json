@@ -1,0 +1,48 @@
+{
+  "routes": [
+    {
+      "geometry": {
+        "coordinates": [
+          [ -73.98891, 40.733122 ],
+          [ -73.992266, 40.734532 ],
+          [ -73.994297, 40.732165 ],
+          [ -73.999014, 40.734147 ],
+          [ -73.999226, 40.734079 ],
+          [ -74.00001, 40.733004 ]
+        ],
+        "type": "LineString"
+      },
+      "legs": [
+        {
+          "summary": "",
+          "weight": 918,
+          "duration": 918,
+          "steps": [],
+          "distance": 1250
+        }
+      ],
+      "weight_name": "duration",
+      "weight": 918,
+      "duration": 918,
+      "distance": 1250
+    }
+  ],
+  "waypoints": [
+    {
+      "distance": 15.535684098115707,
+      "name": "East 13th Street",
+      "location": [
+        -73.98891,
+        40.733122
+      ]
+    },
+    {
+      "distance": 0.9545121434133703,
+      "name": "6th Avenue",
+      "location": [
+        -74.00001,
+        40.733004
+      ]
+    }
+  ]
+}
