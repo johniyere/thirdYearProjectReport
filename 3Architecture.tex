@@ -1,9 +1,5 @@
-\chapter{Architecture Overview} \label{chap:Architecture}
-In this chapter, I discuss the overall architecture, underpinning the trail running website created. In section \ref{graphQlSection} I describe the use of GraphQl as the technology behind the server side API and why I decided to use this over the more widely used REST architectural style.
-
-To provide this website to the user, we follow the popular client server architecture \cite{wiki:ClientServerModel}. The Map Interface described in \ref{mappingPlatform} is provided to the client using Angular, a fronted framework explained in section \ref{frontendFramework}. The server is provided using the new GraphQl API described in \autoref{graphQlSection}.
-
-
+\chapter{Architecture} \label{chap:Architecture}
+To build Offroads, many technologies needed to be harnessed in order to produce the features needed for the Trail Running Website. In \autoref{chap:TrailInterface} we discussed the interface used to create and display trails, in this chapter we discuss how we provide this interface to the user with our chosen \Gls{frontend} framework in \autoref{sec:frontendFramework}. We discuss the extra features needed that the web application provides in \autoref{sec:ExtraFeatures}.
 
 \section{Overview}
 The client of the web application (including the trail interface described in chapter \ref{chap:TrailInterface}) are created with Angular. The client sends to and retrieves data from a GraphQl Server. The GraphQl Server is connected to a MySQl database. Prisma provides a GraphQl \acrfull{dal} to simplify access to the data stored in the database. This overall structure can be seen in \autoref{fig:graphArchitecture}.
@@ -17,6 +13,43 @@ The client of the web application (including the trail interface described in ch
 
 Our server responds with data written in \acrfull{json} format.
 
+\section{GraphQL Backend}
+
+\subsection{}
+
+\subsection{Prisma Layer}
+Prisma\footnote{\url{https://www.prisma.io/}} is a data access layer that replaces traditional ORM's\footnote{Object Relational Mappings}. It sits in front of databases and provides methods that allow the server to access the database. The main feature that it provides is the Prisma Client, which is an auto-generated type-safe database client that creates the data access layer.
+
+\section{Frontend Framework} \label{sec:frontendFramework}
+There are 2 main way's to build modern web applications. It can be done using native web stack of HTML, CSS and JavaScript or (and more popularly), built using modern web application frameworks. Although there are many proponents to building with the native web stack, modern applications, such as this one, are more complex in nature and hence, require tools make it easier to build complex solutions. They also have big communities and strong documentation that make debugging easier \cite{medium:WhyModernJSFrameworkExist}.
+
+There are a large variety Frontend Frameworks out there. I considered the most popular ones which where
+\begin{itemize}
+    \item Angular \footnote{\url{https://angular.io/}}
+    \item React \footnote{\url{https://reactjs.org/}}
+    \item Vue.js \footnote{\url{https://vuejs.org/}}
+\end{itemize}
+
+The framework I decided on was Angular. This was because it has excellent and well-detailed documentation, it came out of the bag with all most of the tools I needed to get started with, and it used Typescript over JavaScript.
+
+Typescript \footnote{\url{https://www.typescriptlang.org/}} is a super set \footnote{it is built on top of JavaScript} of JavaScript, created by Microsoft that provides optional but strict type checking, making developing large scale applications easier \cite{bierman2014understanding}. It also allows me to combine JavaScript's functional programming paradigm \cite{hughes1989functional}, with an Object oriented programming paradigm.
+
+\subsection{State Management With Redux}
+One of the main problems that comes with building web applications is managing state in the frontend. On the editor page, where user's create and trails, It is important to manage the state of the application to allow users to undo and redo any changes they make when creating or editing Trails.
+
+It is possible to create your own system to manage state in angular using systems such as Angular's Dependency Injection \cite{wiki:DependencyInjection}, however this does not suffice to handle applications with many interactions. It also doesn't provide standard support for recording user interactions and a means of replaying those steps when needed.
+
+Redux is JavaScript library created by Facebook use for managing state in user interfaces \cite{wiki:Redux}. NgRx \cite{cheng2018state} is a framework built on the fundamentals of Redux\footnote{The Flux Architecture}, to enable us to maintain state in our Application. It is provides a functional way of building Reactive Applications.
+
+With NgRx we can easily manage and control the state of our web application. This is especially useful in on the editor page, where users can create trails described in \autoref{chap:TrailInterface}. With NgRx, we can easily provide undo and redo features. It is common for users to make mistakes when creating a trail, hence allowing users to undo and redo actions they've performed would be hugely beneficial. NgRx helps us manage the state tree (shown in \autoref{fig:reduxStateTree}) of our application in the form of a stack, including the actions users use to create trails. This allows us to traverse the stack of the users actions allowing for redoing and undoing.
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=\textwidth]{ngrx-state-tree.png}
+    \caption{Redux State tree}
+    \label{fig:reduxStateTree}
+\end{figure}
+
 \section{Authentication and Authorisation}
 Authentication, Authorisation  are a crucial part of Identification any web application s to ensure the users can only interact data intended for them. Moreover, it is needed to allow users to be able to login to the system. The system provides authentication and authorisation with the power of \acrfull{jwt}.
 
@@ -26,7 +59,7 @@ Each user has a unique email they add when they sign-up as defined in our schema
 
 Whenever the client needs to authorise themselves, the client sends the request information (such as a query) and the token as part of the Authorisation header. The server reads the token from the header and can use that to verify client, granting them authorisation when needed.
 
-\section{Necessary CRUD operations}
+\section{Necessary CRUD operations} \label{sec:ExtraFeatures}
 \acrfull{crud} are the four basic operations that most web applications need to provide \cite{codeacademy2019crud}. They are self explanatory verbs that provide the essential operations user's need to be able to interact with web applications.
 
 \subsection{Uploading a Trail}
@@ -107,27 +140,5 @@ To enhance discovery, the system provides social media features in the form of a
 \end{figure}
 
 
-\subsection{Prisma Layer}
-Prisma\footnote{\url{https://www.prisma.io/}} is a data access layer that replaces traditional ORM's\footnote{Object Relational Mappings}. It sits in front of databases and provides methods that allow the server to access the database. The main feature that it provides is the Prisma Client, which is an auto-generated type-safe database client that creates the data access layer.
 
-\section{Frontend Framework} \label{frontendFramework}
-There are 2 main way's to build modern web applications. It can be done using native web stack of HTML, CSS and Javascript or (and more popularly), built using modern web application frameworks. Although there are many proponents to building with the native web stack, modern applications, such as this one, are more complex in nature and hence, require tools make it easier to build complex solutions. They also have big communities and strong documentation that make debugging easier \cite{medium:WhyModernJSFrameworkExist}.
-
-There are a large variety Frontend Frameworks out there. I considered the most popular ones which where
-\begin{itemize}
-    \item Angular \footnote{\url{https://angular.io/}}
-    \item React \footnote{\url{https://reactjs.org/}}
-    \item Vue.js \footnote{\url{https://vuejs.org/}}
-\end{itemize}
-
-The framework I decided on was Angular. This was because it has excellent and well-detailed documentation, it came out of the bag with all most of the tools I needed to get started with (I didn't need alot of external libraries at the start), and it used Typescript over Javascript.
-
-Typescript \footnote{\url{https://www.typescriptlang.org/}} is a super set \footnote{it is built on top of Javascript} of Javascript, created by Microsoft that provides optional but strict type checking, making developing large scale applications easier \cite{bierman2014understanding}. It also allows me to combine Javascripts functional programming paradigm \cite{hughes1989functional}, with an Object oriented programming paradigm.
-
-\subsection{State Management With Redux}
-One of the main problems that comes with building web applications is managing state in the frontend. On the editor page, where user's create and trails, It is important to manage the state of the application to allow users to undo and redo any changes they make when creating or editing Trails.
-
-It is possible to create your own system to manage state in angular using systems such as Angular's Dependency Injection \cite{wiki:DependencyInjection}, however this does not suffice to handle applications with many interactions. It also doesn't provide standard support for recording user interactions and a means of replaying those steps when needed.
-
-Redux is javascript library created by Facebook use for managing state in user interfaces \cite{wiki:Redux}. NgRx \cite{cheng2018state} is a framework built on the fundamentals of Redux\footnote{The Flux Architecture}, to enable us to maintain state in our Application. It is provides a functional way of building Reactive Applications.
 
