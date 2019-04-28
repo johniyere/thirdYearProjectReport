@@ -1,10 +1,26 @@
 \chapter{Recommender System} \label{chap:Recommender}
 
+This chapter will discuss the machine learning approach to building a Recommender system proposed in \autoref{sec:RecSystems}. It discusses the different approaches to creating this Recommender system and explains the reasons behind the chosen method.
+
+\section{Information Gathering}
+The Recommender System requires a representation of a users preferences in a format suitable for statistical analysis. To generate this representation, we need to collect some form of feedback from the users. There are three types of feedback that can be retrieved from the user.
+
+\subsubsection{Implicit Feedback}
+The user preferences are attained automatically from \gls{implicit} user actions on the system.This reduces the amount of work and input needed by the user, however it is less accurate. Implicit data we can collect is the number of times a user clicks on a trail, but a user clicking on a trail does not reflect their feelings towards that trail.
+
+\subsubsection{Explicit Feedback}
+The system requires users to reflect on the choices of trails that they make. In our system we provide a review system discussed in \autoref{subsec:trailDescription}, that asks users to rate the trails that they've run \cite{jawaheer2010comparison}. As the users provides this data explicitly, it is more accurate and more greatly reflects the users preferences. However, users are less likely to leave reviews and ratings unless forced too.
+
+\subsubsection{Hybrid Feedback}
+A combination of both Implicit and Explicit feed-backs, using the strengths of both and minimising the weakness of each feedback method. 
+
+Due to the inaccuracy of implicit feedback, especially in our scenario, I decided to just rely on explicit feedback.
+
 \section{Choosing A Recommender Algorithms} \label{chooseRecAlg}
-There are multiple different ways of implementing recommender system. For a machine learning approach there, there are three popular approaches used which are
+There are multiple different ways of implementing Recommender system. For a machine learning approach there, there are three popular approaches used which are
 \begin{itemize}
     \item Content-based filtering
-    \item Collabortive filtering
+    \item Collaborative filtering
     \item Hybrid Technique
 \end{itemize}
 as shown in figure \ref{fig:recommenderSystemTypes}. The main feature that the approaches listed above is similarity.
@@ -17,9 +33,12 @@ as shown in figure \ref{fig:recommenderSystemTypes}. The main feature that the a
 \end{figure}
 
 \subsubsection{Content-based filtering}
-With content-based filtering, you have meta-data about the particular items. So in our scenario we would have extra information about routes such as the type of terrain, location, elevation, etc. When a user runs a specific route, we suggest routes that are similar based on the extra meta-data provided
+\acrfull{cbf} recommends items based on information known about the particular item \cite{pazzani2007content}. The system would have some meta-data about the item, for example, in our scenario we would have extra information about trails such as the type of terrain, location, elevation etc. Items are recommended to the user based on features extracted from users history of positively rated items that represents a users preferences \cite{isinkaye2015recommendation}.
 
-The main problem with this approach is providing the extra meta-data on the routes. We can get some of this data automatically by e.g. Calculating elevation as shown in section \ref{elevationProfile}, however, other information like the type of terrain cannot be achieved automatically. Another way is to get user's to add the extra information on the trails, but the system would then have to trust the user's knowledge on information of trails. The system would also then require a wide variety of attributes to categorise trails as there are multiple defining features for trails. Example shown in figure \ref{fig:contentBasedFiltering}
+\acrshort{cbf} resolves some of the problems of \acrshort{cf}. The system can still recommend items to users who have not rated any items \cite{burke2002hybrid}. However the the strength of the system greatly relies on how well the content analysis is. 
+
+Content Analysis is the technique of mapping symbolic data into data in a matrix format suitable for analysis \cite{roberts2001content}. For some domains such as news and publications it is quite effective, but for user data that is quite subjective and can be influenced by a large number of variables, it can be difficult and the attributes retrieved may not be suitable to categorise a trail. Having the user add attributes to trails is not a very user friendly method as users are not inclined to perform such menial tasks.
+ \ref{fig:contentBasedFiltering}
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{content-based-filtering.png}
@@ -28,11 +47,9 @@ The main problem with this approach is providing the extra meta-data on the rout
 \end{figure}
 
 \subsubsection{Collaborative filtering}
-Unlike content based filtering, collaborative filtering works on the similarity between users. The idea is that, user A likes routes 1 \& 2 and user B likes routes 2 \& 3. As user A and user B like the same route (route 2), then they are similar and user A would also like route 3. 
+\acrfull{cf} is a domain independent technique especially useful when content analysis of the items cannot be easily done \cite{isinkaye2015recommendation}. It does so by matching users that are similar based on the user preferences and using this matching to make recommendations \cite{herlocker2004evaluating}. The idea is that, user A likes routes 1 \& 2 and user B likes routes 2 \& 3. As user A and user B like the same route (route 2), then they are similar and user A would also like route 3. 
 
 This property can be seen in real life and works extremely well. People are more likely to trust the suggestions of their friends, i.e. people that they are the most similar with. With this system, you do not need to know any extra information on the routes you are running the algorithm on. We us either explicit information such as user ratings, or implicit information such as number of views on a route, to determine the routes users like. Example shown in figure \ref{fig:collaborativeFiltering}.
-
-Because of these reasons, I chose to use this type of recommender system.
 
 \begin{figure}[ht]
     \centering
@@ -41,8 +58,10 @@ Because of these reasons, I chose to use this type of recommender system.
     \label{fig:collaborativeFiltering}
 \end{figure}
 
+As trails are quite hard item to perform content analysis on, I decided to chose the collaborative filtering technique. It is best suited to trail running as users are more likely to run routes recommended to them by others.
+
 \subsubsection{Hybrid Recommender Systems}
-Hybrid recommender systems simply combine the results of both collaborative and content-based techniques. The results from both the system's would then have to be ranked again in the combiner as shown in figure \ref{fig:hybridRecommenderSystems}
+Hybrid Recommender systems simply combine the results of both collaborative and content-based techniques \cite{claypool1999combing}. The results from both the system's would then have to be ranked again in the combiner as shown in figure \ref{fig:hybridRecommenderSystems}
 
 \begin{figure}[ht]
     \centering
@@ -51,18 +70,20 @@ Hybrid recommender systems simply combine the results of both collaborative and 
     \label{fig:hybridRecommenderSystems}
 \end{figure}
 
+Although this may be a more appropriate approach to building Recommender Systems, it still requires the complexities from content-based filtering, hence this approach was not used. For this reason, we use a \acrlong{cf} Technique.
 
 \section{Collaborative Filtering}
-Collaborative filtering is based on the similarity score we can calculate using the explicit data we get from the users. The explicit data that we collect is a rating between 1-5\footnote{where 1 is the worst and 5 is the best}. We can either use a Memory based Technique or Model Based Technique.
+Collaborative filtering techniques require the system to users that are similar based on their user preferences inferred from the ratings they give trails they have run previously. There are 2 main approaches to collaborative filtering. We compare these methods below to decide which method is is best suited to our application.
 
 \subsubsection{Memory based Technique}
+Memory based
 With memory based techniques, we calculate similarity scores either between users or between items based on the ratings \cite{wang2006unifying}. 
 
 The problem with this method is that it has to be run every time the user queries the system. Since there is no model to train as with most machine learning methods, you will have to calculate the similarity score with all the items each time which is a huge performance bottle neck.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{collab-filtering-types.png}
-    \caption{Types of Collaborative filtering}
+    \caption{Memory based tachniques ti collaborative filtering}
     \label{fig:collabFilteringTypes}
 \end{figure}
 
