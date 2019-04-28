@@ -1,13 +1,13 @@
 \chapter{Evaluation and Testing}
-It is important to test the system. Not only manually testing the website, but also empirically testing the efficient of the recommender system. One of the main problems that we have is that we do not have an original dataset to test our system, we discuss ways of overcoming this issue in section \ref{coldStartProble}.
+It is important to test the system. Not only manually testing the website, but also empirically testing the efficient of the Recommender system. One of the main problems that we have is that we do not have an original dataset to test our system, we discuss ways of overcoming this issue in section \ref{coldStartProble}.
 \section{Quality of Recommender systems}
-\subsection{Evaluation Metrics}
-The quality of recommender systems can evaluated using a variety of different empirical metrics \cite{isinkaye2015recommendation}. We use empirical methods because it gives us a statistical value we can aim to improve. It also gives us a value we can compare against other recommender systems, allowing us to measure against industry standards and benchmarks
+\subsection{Evaluation Metrics} \label{subsec:evaluationMetrics}
+The quality of Recommender systems can evaluated using a variety of different empirical metrics \cite{isinkaye2015recommendation}. We use empirical methods because it gives us a statistical value we can aim to improve. It also gives us a value we can compare against other Recommender systems, allowing us to measure against industry standards and benchmarks
 \subsection{Extreme Cold Start Problem} \label{coldStartProble}
-To test our machine learning model, we would need to have training data to train our model on and then calculate the MSE to know how accurate our model is. However, as this is a completely new system, there is no previous data-set to train the machine learning model on which means that there is no way to test the model. One of the way's to solve this problem is to generate our own dataset.
+To test our machine learning model, we would need to have training data to train our model on and then calculate the \acrshort{mse} to know how accurate our model is. However, as this is a completely new system, there is no previous data-set to train the machine learning model on which means that there is no way to test the model. One of the way's to solve this problem is to generate our own data-set.
 
-\subsubsection{Generating Dataset}
-Although this will not be an accurate dataset to train our model on, it would help test how good the machine learning model we created is. For the dataset we to need to generate users and routes. For each user and route, we assign 4 attributes: Terrain, Distance, Elevation and Scenery (representing four attributes of a route). For each user, we generate values for these attributes that will correspond with how much each user likes that attribute for a route as shown in table \ref{tab:genUserDataset}. 
+\subsubsection{Generating Data-set}
+Although this will not be an accurate data-set to train our model on, it would help test how good the machine learning model we created is. For the data-set we to need to generate users and routes. For each user and route, we assign 4 attributes: Terrain, Distance, Elevation and Scenery (representing four attributes of a route). For each user, we generate values for these attributes that will correspond with how much each user likes that attribute for a route as shown in table \ref{tab:genUserDataset}. 
 
 The attribute values range from 0 to 9, 0 g extreme dislike and 9 meaning extreme like. Each route will also have values for this attributes which is how much of that attribute that the route has as shown in table \ref{tab:genRouteDataset}.
 
@@ -24,7 +24,7 @@ The attribute values range from 0 to 9, 0 g extreme dislike and 9 meaning extrem
          4 & 6 & 7 & 7 & 2 \\
          \hline
     \end{tabular}
-    \caption{Example of User Data to help generate dataset}
+    \caption{Example of User Data to help generate data-set}
     \label{tab:genUserDataset}
 \end{table}
 
@@ -41,7 +41,7 @@ The attribute values range from 0 to 9, 0 g extreme dislike and 9 meaning extrem
          4 & 6 & 7 & 7 & 9 \\
          \hline
     \end{tabular}
-    \caption{Example of Route Data to help generate dataset}
+    \caption{Example of Route Data to help generate data-set}
     \label{tab:genRouteDataset}
 \end{table}
 
@@ -81,35 +81,37 @@ We then use this like value to calculate the rating by using the equation \ref{e
     \textrm{rating} = \big(\sigma(\textrm{likes}) \times 4\big) + 1
 \end{equation}
 
-We then use these generated ratings to help train our machine learning model. With tensor flow we can get our final MSE and root it to get our Root Mean Squared Error (RMSE), the standard for comparing how good the recommender system machine learning models are.
+We then use these generated ratings to help train our machine learning model. With tensor flow we can get our final \acrshort{mse} and root it to get our \acrfull{rmse}, the standard for comparing how good the Recommender system machine learning models are.
 
 \subsection{Movie Lens Data-set}
-Another way to test the system is to use an already existing dataset. One of the benefits of recommender systems is that it can be applied to any generic user-item ratings matrix. Hence although we may not be able to find an already existing user-route ratings matrix, we can use another user-item ratings matrix to test it.
+Another way to test the system is to use an already existing data-set. One of the benefits of Recommender systems is that it can be applied to any generic user-item ratings matrix. Hence although we may not be able to find an already existing user-route ratings matrix, we can use another user-item ratings matrix to test it.
 
-The dataset that I used is a popular dataset of user-movies ratings called the Movie lens Dataset\footnote{https://grouplens.org/datasets/movielens/}. The best thing about using this data set is that there are other online recommender systems that have been tested on this dataset that we can compare our RMSE score against\footnote{https://www.kaggle.com/learn/overview}\footnote{https://www.librec.net/release/v1.3/example.html}.
+The dataset that I used is a popular dataset of user-movies ratings called the Movie lens Dataset\footnote{https://grouplens.org/datasets/movielens/}. The best thing about using this data set is that there are other online recommender systems that have been tested on this dataset that we can compare our \acrshort{rmse} score against\footnote{https://www.kaggle.com/learn/overview}\footnote{https://www.librec.net/release/v1.3/example.html}.
 
 Create another model that is trained on our movie lens dataset based on the exact same code as the one for our original neural network model.
 
 \section{Manual Testing}
+
 \subsection{GraphQL Dev Tools}
+It is important to be able to test the GraphQL queries before exposing them to the front-end. One of the benefits with GraphQL is the development tools it provides. This tools allows you to view the GraphQL schema you've defined, including all the possible operations available. It also allows you to test each operation.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{graphql-dev.png}
+    \includegraphics[width=0.75\textwidth]{graphql-dev.png}
     \caption{GraphQl Development Tools}
     \label{fig:graphQLDevTools}
 \end{figure}
 
 \subsection{Redux Dev Tools}
-NgRx comes with dev tools as shown in figure \ref{fig:reduxDevTools}. It allows us to track the state of our application as it evolves from initial login, to router navigations and trail changes. This record can then be used to rewind through previous actions, allowing us to provide undo and redo functionalities to the user.
+NgRx comes with dev tools as shown in figure \ref{fig:reduxDevTools}. It allows us to track the state of our application as it evolves from initial log-in, to router navigation and trail changes. This tool can be used to traverse the state of our application as it evolves. It allows us to ensure that the right actions are being called at the right times
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{redux-dev-tools.png}
+    \includegraphics[width=0.75\textwidth]{redux-dev-tools.png}
     \caption{Redux Dev Tools}
     \label{fig:reduxDevTools}
 \end{figure}
 
 
 \section{Unit and Integration Testing}
-To test the frontend we follow a standard industry methods of creating both unit tests and integration tests. Angular comes built with the Jasmine Testing framework\footnote{https://jasmine.github.io/}, a javascript behaviour driven framework. Jasmine also use Karma\footnote{https://karma-runner.github.io/latest/index.html}, that allows us to run the tests on the browser.
+To test the front-end we follow a standard industry methods of creating both unit tests and integration tests. Angular comes built with the Jasmine Testing framework\footnote{https://jasmine.github.io/}, a JavaScript behaviour driven framework. Jasmine also use Karma\footnote{https://karma-runner.github.io/latest/index.html}, that allows us to run the tests on the browser.
 
 Angular also provides Protractor\footnote{https://www.protractortest.org/} for end to end testing on the front end

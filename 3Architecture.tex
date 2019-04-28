@@ -6,8 +6,8 @@ The client of the web application (including the trail interface described in ch
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{graphql-architecture.jpg}
-    \caption{Overall Architecture of the web application}
+    \includegraphics[width=0.75\textwidth]{graphql-architecture.jpg}
+    \caption{Overall Architecture of the web application \cite{graphqlStructure}}
     \label{fig:graphArchitecture}
 \end{figure}
 
@@ -29,20 +29,20 @@ GraphQL executes the query in the shape \cite{jonas2016graphql}. It first execut
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{graphql-resolver.png}
-    \caption{GraphQL resolver function}
+    \includegraphics[width=0.75\textwidth]{graphql-resolver.png}
+    \caption{GraphQL resolver function broken down in execution order \cite{jonas2016graphql}}
     \label{fig:graphQlResolver}
 \end{figure}
 
 This benefit to the client comes with its own complexities. As we use an SQL database, having to write queries for each resolver function that needs to be called can become counter intuitive to the advantages provided. This is why we use Prisma as a \acrfull{dal} between our server and our database.
 
 \subsection{Prisma Layer}
-Prisma\footnote{\url{https://www.prisma.io/}} is a data access layer that replaces traditional \acrfull{orm}. It sits in front of databases and provides methods that allow the server to access the database. The main feature that it provides is the Prisma Client, which is an auto-generated type-safe database client that creates the data access layer. Rather than having to write the SQL queries, Prisma reads our GraphQL schema and uses that to generate functions we can use to access our database (see \autoref{fig:prismaGenerate}).
+Prisma \cite{prisma} is a data access layer that replaces traditional \acrfull{orm}. It sits in front of databases and provides methods that allow the server to access the database. The main feature that it provides is the Prisma Client, which is an auto-generated type-safe database client that creates the data access layer. Rather than having to write the SQL queries, Prisma reads our GraphQL schema and uses that to generate functions we can use to access our database (see \autoref{fig:prismaGenerate}).
 
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\textwidth]{prisma-generate.png}
-    \caption{Prisma generated sql}
+    \caption{SQL query generated from graphQL datamodel \cite{prismageneratesql}}
     \label{fig:prismaGenerate}
 \end{figure}
 
@@ -52,14 +52,14 @@ There are 2 main way's to build modern web applications. It can be done using na
 
 There are a large variety Frontend Frameworks out there. I considered the most popular ones which where
 \begin{itemize}
-    \item Angular \footnote{\url{https://angular.io/}}
-    \item React \footnote{\url{https://reactjs.org/}}
-    \item Vue.js \footnote{\url{https://vuejs.org/}}
+    \item Angular \cite{angular}
+    \item React \cite{react}
+    \item Vue.js \cite{vuejs}
 \end{itemize}
 
 The framework I decided on was Angular. This was because it has excellent and well-detailed documentation, it came out of the bag with all most of the tools I needed to get started with, and it used Typescript over JavaScript.
 
-Typescript \footnote{\url{https://www.typescriptlang.org/}} is a super set \footnote{it is built on top of JavaScript} of JavaScript, created by Microsoft that provides optional but strict type checking, making developing large scale applications easier \cite{bierman2014understanding}. It also allows me to combine JavaScript's functional programming paradigm \cite{hughes1989functional}, with an Object oriented programming paradigm.
+Typescript  is a super set\footnote{it is built on top of JavaScript} of JavaScript, created by Microsoft that provides optional but strict type checking, making developing large scale applications easier \cite{bierman2014understanding}. It also allows me to combine JavaScript's functional programming paradigm \cite{hughes1989functional}, with an Object oriented programming paradigm.
 
 \subsection{State Management With Redux}
 One of the main problems that comes with building web applications is managing state in the frontend. On the editor page, where user's create and trails, It is important to manage the state of the application to allow users to undo and redo any changes they make when creating or editing Trails.
@@ -72,8 +72,8 @@ With NgRx we can easily manage and control the state of our web application. Thi
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{ngrx-state-tree.png}
-    \caption{Redux State tree}
+    \includegraphics[width=0.75\textwidth]{ngrx-state-tree.png}
+    \caption{Redux State tree show from the devl tools}
     \label{fig:reduxStateTree}
 \end{figure}
 
@@ -113,16 +113,16 @@ RxJs is a Javascript library from ReactiveX built on the Reactive programming pa
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{debounce-time.png}
-    \caption{Debounce Time Operator}
+    \includegraphics[width=0.75\textwidth]{debounce-time.png}
+    \caption{Debounce Time operator \cite{reactiveMarbles}}
     \label{fig:debounceTime}
 \end{figure}
 
 \paragraph{Distinct until changed} seen in \autoref{fig:distinctUntilChanged} only emits the current value if it is different from the previous value \cite{leanrrxjs2019distinct}.
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{distinctUntilChanged.png}
-    \caption{Distinct until changed}
+    \includegraphics[width=0.75\textwidth]{distinctUntilChanged.png}
+    \caption{Distinct until changed operator \cite{reactiveMarbles}}
     \label{fig:distinctUntilChanged}
 \end{figure}
 
@@ -131,7 +131,7 @@ The trail description page includes all the information about a trail. It includ
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{trail-description.png}
+    \includegraphics[width=0.75\textwidth]{trail-description.png}
     \caption{Trail description page. Note: details on the right side of map are placeholders and are not a reflection of the trail}
     \label{fig:trailDescriptionPage}
 \end{figure}
@@ -141,8 +141,8 @@ An important feature that the systems provides is a way of enhancing competition
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{leaderboard.png}
-    \caption{Leaderboard System}
+    \includegraphics[width=0.75\textwidth]{leaderboard.png}
+    \caption{Leader-board table on the trail description page}
     \label{fig:leaderboard}
 \end{figure}
 
@@ -151,8 +151,8 @@ Users can review a trail that they have run and also give ratings for the trail.
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{reviews-ratings.png}
-    \caption{Reviews system}
+    \includegraphics[width=0.75\textwidth]{reviews-ratings.png}
+    \caption{(Randomly generated) user reviews and rations}
     \label{fig:reviews}
 \end{figure}
 
@@ -161,8 +161,8 @@ To enhance discovery, the system provides social media features in the form of a
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{feed-page.png}
-    \caption{Feed Page}
+    \includegraphics[width=0.75\textwidth]{feed-page.png}
+    \caption{(Randomly generated) user feed page}
     \label{fig:feedPage}
 \end{figure}
 

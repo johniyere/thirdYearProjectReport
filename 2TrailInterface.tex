@@ -37,8 +37,8 @@ When a user clicks on the map, the system returns the coordinates of the point t
 We can use this data to draw points on the map interface, visually showing the user the points that have been clicked as shown in figure \ref{fig:SinglePointCreated}. 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{single-point-on-map.png}
-    \caption{The point created by a user clicking on the map}
+    \includegraphics[width=0.75\textwidth]{single-point-on-map.png}
+    \caption{The point created by a user clicking on the map indicating the location the user clicked in}
     \label{fig:SinglePointCreated}
 \end{figure}
 When the user adds an extra point, the system needs to combine these two points with a line. At this point, we need to calculate a path between the last point added and the new point that's just been added. When a user creates a path, it makes more sense for the path to follow already existing paths rather than just a straight line. Hence we need to calculate a path from between the two points to draw the line. Mapbox provides a Directions API to help us do this.
@@ -47,9 +47,9 @@ When the user adds an extra point, the system needs to combine these two points 
 \subsubsection{Finding a path}
 Mapbox's Direction API allows us to find a path between two points by querying the API with a \textit{start} and \textit{end} coordinates.  The API then returns us a a json object describing the path between the specified starts and end points and the distance between the two points specified (an example is shown in appendix \ref{appSec:mapboxDirections}). We we use this data to draw a line between the two points that will follow the path returned (see figure \ref{fig:PathCreated}).
 
-\begin{figure}[ht]
+\begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{path-between-points.png}
+    \includegraphics[width=0.75\textwidth]{path-between-points.png}
     \caption{Path created from the directions returned by the Mapbox API}
     \label{fig:PathCreated}
 \end{figure}
@@ -57,9 +57,9 @@ Mapbox's Direction API allows us to find a path between two points by querying t
 \section{Presenting Elevation Profiles} \label{elevationProfile}
 Trail runner's often use the elevation of a trail to help decide the type of trail that they wish to run. For this, the map interface provides contours that allow users to anticipate the steepness of the trail that they are creating or that they wish to run as shown in figure \ref{fig:MapContours}.
 
-\begin{figure}[ht]
+\begin{figure}[htb!]
     \centering
-    \includegraphics[width=\textwidth]{map-contours.png}
+    \includegraphics[width=0.75\textwidth]{map-contours.png}
     \caption{Contours on the map to help find elevation}
     \label{fig:MapContours}
 \end{figure}
@@ -69,4 +69,4 @@ However, for the uninformed, reading contours can prove to be an unusual task. A
 
 The Mapbox Directions API only provides an elevation of specific way-points of the path that is returned as shown in appendix \ref{appSec:mapboxDirections}. Although this provides some elevation information, it is not sufficient enough as the elevation of a trail can change drastically withing way-points.
 
-Google offers an elevation service that allows you to query a specific route and in return get the a detailed elevation of that trail as shown in appendix \ref{appSec:googleElevation}. As a trail is being created, we send another request to the Google elevations service to get this information. We then plot on the graph the line the line that is returned, updating it as we trail is updated. The graphing API that we use is Fusion Charts\footnote{\url{https://www.fusioncharts.com/}}.
+Google offers an elevation service that allows you to query a specific route and in return get the a detailed elevation of that trail as shown in appendix \ref{appSec:googleElevation}. As a trail is being created, we send another request to the Google elevations service to get this information. We then plot on the graph the line the line that is returned, updating it as we trail is updated. The graphing API that we use is Fusion Charts\cite{fusionCharts}.
