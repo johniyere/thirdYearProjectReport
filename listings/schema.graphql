@@ -1,0 +1,138 @@
+# import RouteOrderByInput from "./generated/prisma.graphql"
+scalar DateTime
+
+type Query {
+  me: User
+  routes(orderBy: RouteOrderByInput): [Route!]!
+  route(id: ID!): Route! 
+  recommendedUserRoutes: [Route!]!
+  popularRoutes: [Route!]!
+  topRatedRoutes: [Route!]!
+  activities: [Run!]!
+  users: [User!]!
+  nnRecommendedRoutes: [Route!]!
+  createCSV: [User!]!
+  search(filter: String!): SearchPayload!
+}
+
+type Mutation {
+  login(email: String!): AuthPayload!
+  signup(email: String!, name: String!): AuthPayload!
+  createRoute(name: String!, points: [PointInput!]!, lines: [LineInput!]!): Route!
+  uploadRun(title: String, comment: String, routeId: ID!, time: Int): Run!
+  addAReview(rating: Float!, routeId: ID!, comment: String): Review!
+  follow(userToFollowId: ID!): User!
+  removeFollower(followerToRemoveId: ID!): User!
+  unfollow(userToUnfollowId: ID!): User!
+  bookmarkTrail(routeIdToBookmark: ID!): User!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type ReviewRunPayload {
+  reviews: [Review!]!
+  runs: [Run!]!
+}
+
+type SearchPayload {
+  routes: [Route!]!
+  users: [User!]!
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  createdRoutes: [Route!]!
+  runs: [Run!]!
+  reviews: [Review!]!
+  userType: ModelType
+  following: [User!]!
+  followers: [User!]!
+  bookmarkedTrails: [Route!]!
+}
+
+type Route {
+  id: ID!
+  name: String!
+  creator: User!
+  points: [Point!]!
+  lines: [Line!]!
+  runs: [Run!]!
+  reviews: [Review!]!
+  description: String
+  routeType: ModelType
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  avgRating: Float
+}
+
+type Point {
+  id: ID!
+  coordinates: Coordinates!
+  elevation: Float!
+  distanceFromPreviousPoint: Float
+  route: Route
+}
+
+type Line {
+  id: ID!
+  points: [Point!]!
+  route: Route!
+}
+
+type Coordinates {
+  id: ID!
+  lng: Float!
+  lat: Float!
+}
+
+type Run {
+  id: ID!
+  title: String
+  comment: String
+  route: Route!
+  uploader: User!
+  createdAt: DateTime!
+  time: Int
+}
+
+type Review {
+  id: ID!
+  rating: Float!
+  reviewer: User!
+  route: Route!
+  createdAt: DateTime!
+  comment: String
+}
+
+type ModelType {
+  id: ID!
+  terrain: Int
+  elevation: Int
+  distance: Int
+  scenary: Int
+}
+
+input PointInput {
+  coordinates: CoordinatesInput!
+  elevation: Float!
+  distanceFromPreviousPoint: Float!
+}
+
+input LinePointInput {
+  coordinates: CoordinatesInput!
+  elevation: Float!
+}
+
+input LineInput {
+  points: [LinePointInput!]!
+}
+
+input CoordinatesInput {
+  lng: Float!
+  lat: Float!
+}

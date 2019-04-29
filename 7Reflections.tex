@@ -2,29 +2,27 @@
 \section{Planning and Management}
 The project was split into 2 main action areas
 \begin{itemize}
-    \item The first part was to create the infrastructure of the website. This includes the frontend, backend and the trail interface discussed in the sections above.
-    \item The second part was the creation of the recommender system. Including the research into the types of recommender systems that I could use and the technologies.
+    \item The first part was to create the infrastructure of the website. This includes the \gls{front-end}, \gls{back-end} and the trail interface discussed in the sections above.
+    \item The second part was the creation of the Recommender system. Including the research into the types of Recommender systems that I could use and the technologies.
 \end{itemize}
 
-However one of the main problems with this is I greatly underestimated how hard it was building the infrastructure of the website. One of the major factors that slowed me down is learning GraphQL. It is a new technology that I'm not familiar with which made progress with it slow. And as it is quite new, and not used by many, there was no such community to get help from and no real documentation provided to use. 
+However one of the main problems with this is I greatly underestimated how hard it was building the infrastructure of the website. One of the major factors that slowed me down is learning GraphQL. It is a new technology that I'm not familiar with which made progress with it slow. And as it is quite new, and not used by many, there was no such community to get help from and no real documentation provided to use. This meant I was not able to focus a lot on researching the Recommender system's and could not use Content-based filtering and hybrid Recommender systems to improve my overall Recommender system.
 
-This meant I was not able to focus alot on researching the recommender system's and could not use Content-based filtering and hybrid recommender systems to improve my overall recommender system.
 \section{Future Work}
 \subsection{Hybrid Recommender Systems}
-One of the problem's we had with this system is there was no extra meta-data on the data for routes given. This prevented us from using content-based filtering. Now although collaborative filtering is a better recommender system than content-based filtering, a much better method would be combining the results from both systems. A hybrid recommender system would be useful to combine and rank the results from both of them to provide between suggestions.
+One of the problem's we had with this system is there was no extra meta-data on the data for routes given. This prevented us from using content-based filtering. Now although collaborative filtering is a better Recommender system than content-based filtering, a much better method would be combining the results from both systems. A hybrid Recommender system would be useful to combine and rank the results from both of them to provide between suggestions.
 
 \subsection{Exploring on a Map View}
 One of the features that the other trail running websites provide as shown is \autoref{sec:TrailRunningApplications} is presenting the trails on a map view, that show's the location of each trail. This presents a more user friendly way of viewing the trails and also provides extra information of the location of where the trails are.
 
 \subsection{Deploying the Website}
-An important part of building any application is the method of deployment. I would have used one of the many online cloud services, preferably Amazon Web Services (AWS), to deploy the website. One of the mahor things of using this is that it allow's you to easily build scalable web applications. They also take away the complexity of dealing with hard ware issues. And it would provide extra resources needed, for example, machine learning specific architecture to improve the machine learning process.
+An important part of building any application is the method of deployment. I would have used one of the many online cloud services, preferably Amazon Web Services (AWS), to deploy the website.
 
 \subsection{CI \& CD pipelines}
-During development, I used alot of development tools. One strategy I could use to make both debugging and deployment easy is to use Continous Integration and Continous Deployment. This is very important for improving real life applications as it eleviates the problems that come with testing by adding automated testing and ensuring the main version of the application is not broken. It also simplifies the deployment of applications
+During development, I used a lot of development tools. One strategy I could use to make both debugging and deployment easy is to use Continuous Integration and Continuous Deployment. This is very important for improving real life applications as it alleviates the problems that come with testing by adding automated testing and ensuring the main version of the application is not broken. It also simplifies the deployment of applications
 
 \subsection{Mobile Application}
-One of the problems with building a website solution is that it's not a very mobile solution. It's not easy to allow users to live record a trail as they run it, or their live data as they run an already ran trail to help in comparison. 
+One of the problems with building a website solution is that it's not a very mobile solution. It's not easy to allow users to live record a trail as they run it, or their live data as they run an already ran trail to help in comparison. A better way for deliver this solution is to use a mobile application.
 
-A better way for deliver this solution is to use a mobile application. However with a mobile application there's also the problem of developing for multiple Operating Systems, namely IOS and Android.
-
-So we could use a hybrid framework to develop for both of these interfaces. I believe this would be a better solution than just developing a responsive website as it would have a more native feel. And it would have the benefit of not having to develop and maintain different projects for the same application.
+\subsection{User Testing}
+To improve the evaluation process, we can perform users tests, done by a sample of trail running users to get better feed back on the system, how well the recommender system works and the overal user Interface.

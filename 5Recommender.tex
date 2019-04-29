@@ -6,7 +6,7 @@ This chapter will discuss the machine learning approach to building a Recommende
 The Recommender System requires a representation of a users preferences in a format suitable for statistical analysis. To generate this representation, we need to collect some form of feedback from the users. There are three types of feedback that can be retrieved from the user.
 
 \subsubsection{Implicit Feedback}
-The user preferences are attained automatically from \gls{implicit} user actions on the system.This reduces the amount of work and input needed by the user, however it is less accurate. Implicit data we can collect is the number of times a user clicks on a trail, but a user clicking on a trail does not reflect their feelings towards that trail.
+The user preferences are obtained automatically from implicit user actions on the system. This reduces the amount of work and input needed by the user, however it is less accurate. Implicit data we can collect is the number of times a user clicks on a trail, but a user clicking on a trail does not reflect their feelings towards that trail.
 
 \subsubsection{Explicit Feedback}
 The system requires users to reflect on the choices of trails that they make. In our system we provide a review system discussed in \autoref{subsec:trailDescription}, that asks users to rate the trails that they've run \cite{jawaheer2010comparison}. As the users provides this data explicitly, it is more accurate and more greatly reflects the users preferences. However, users are less likely to leave reviews and ratings unless forced too.
@@ -17,7 +17,7 @@ A combination of both Implicit and Explicit feed-backs, using the strengths of b
 Due to the inaccuracy of implicit feedback, especially in our scenario, I decided to just rely on explicit feedback.
 
 \section{Choosing A Recommender Algorithms} \label{chooseRecAlg}
-There are multiple different ways of implementing Recommender system. For a machine learning approach there, there are three popular approaches used which are
+There are multiple different ways of implementing Recommender system. For a machine learning approach, there are three popular approaches used which are
 \begin{itemize}
     \item Content-based filtering
     \item Collaborative filtering
@@ -73,7 +73,7 @@ Hybrid Recommender systems simply combine the results of both collaborative and 
 Although this may be a more appropriate approach to building Recommender Systems, it still requires the complexities from content-based filtering, hence this approach was not used. For this reason, we use a \acrlong{cf} Technique.
 
 \section{Collaborative Filtering}
-Collaborative filtering techniques require the system to users that are similar based on their user preferences inferred from the ratings they give trails they have run previously. There are 2 main approaches to collaborative filtering. We compare these methods below to decide which method is is best suited to our application.
+Collaborative filtering techniques require the system to find users that are similar based on their user preferences inferred from the ratings they give trails they have run previously. There are 2 main approaches to collaborative filtering. We compare these methods below to decide which method is is best suited to our application.
 
 \subsubsection{Memory based Technique}
 Memory based based techniques calculate a similarity scores between users or between trails based on the ratings users give trails  \cite{wang2006unifying}. It uses statistical calculations such as the Pearson Correlation Coefficient \cite{benesty2009pearson}, or the Cosine Similarity \cite{michie1994machine}, to calculate the similarity which is weighted against the ratings provided to recommend and rank trails to new users.
@@ -91,7 +91,7 @@ This method struggles with performance as the calculations have to be calculated
 To improve on the issues of the memory based techniques, we can use model based techniques. We create a machine learning model that will be trained on a data set of user-trails ratings using the Matrix Factorisation method described in section \ref{matrixFactorization}. We will use a neural network described in section \ref{neuralNetwork}
 
 \section{Matrix Factorisation} \label{matrixFactorization}
-To be able to predict trails that would be most suitable to a user, the system need to learn two main features about the users and trails:
+To be able to predict trails that would be most suitable to a user, the system needs to learn two main features about the users and trails:
 \begin{itemize}
     \item what features a specific user likes in trails
     \item what features a route has that users like
@@ -112,7 +112,7 @@ We can represent the above mathematically as
     R \approx P \times Q^T
 \end{equation}
 
-Where $R$ is our ratings matrix of size $i \times j$, where $i$ is the number of users and $j$ is the number of trails. $P$ is a lower dimension user-feature matrix of size $i \times k$ where $k$ is the number of features. $Q$ is a lower dimension trail-feature matrix of size $u \times k$ and $Q^T$ is its transposition.
+Where $R$ is our ratings matrix of size $i \times j$, where $i$ is the number of users and $j$ is the number of trails. $P$ is a user-feature matrix of size $i \times k$ where $k$ is the number of features. $Q$ is a trail-feature matrix of size $u \times k$ and $Q^T$ is its transposition.
 
 As the lower dimension matrices are a decomposition of the ratings matrix, they represent the factors that users use to decide their ratings. Our goal is to find the values for these lower dimension matrices that best describe the ratings matrix and hence best describe the users and trails. These matrices in essence become our user preferences and trail attributes.
 
@@ -141,10 +141,10 @@ Choosing a loss function depends on the type of problem you wish to solve and al
 The mean squared error is the measure of an average of the square differences between the predicted values of and the actual values.
 
 \begin{equation} \label{eqn:mseLossFunction}
-    MSE = \frac{1}{N}\sum_{i=1}^{N}{({f_i}-{y_i})}^2 
+    MSE = \frac{1}{N}\sum_{i=1}^{N}{({p_i}-{a_i})}^2 
 \end{equation}
 
-Where $N$ is the number of iterations performed when training our model. $f_i$ is our predicted value for the $ith$ iteration and $y_i$ is the actual value. Squaring this value has two benefits. It makes the value absolute, as we only care about the difference and not the sign. It also ensures that our loss van be modelled as a quadratic functions. This benefits the system as it ensures there is only one minimum value, (one optimised value). This gives the allows us to easily know when the system has reached the best optimisation possible without over-shooting the minimum.
+Where $N$ is the number of iterations performed when training our model. $p_i$ is our predicted value for the $ith$ iteration and $a_i$ is the actual value. Squaring this value has two benefits. It makes the value absolute, as we only care about the difference and not the sign. It also ensures that our loss van be modelled as a quadratic functions. This benefits the system as it ensures there is only one minimum value, (one optimised value). This gives the allows us to easily know when the system has reached the best optimisation possible without over-shooting the minimum.
 
 \subsubsection{Gradient Descent}
 Gradient descent is an optimisation algorithm that aims to minimise a loss function by repeatedly taking descent learning steps over a negative gradient towards a minimum value. The gradient descent algorithm takes in a learning rate. This tells us the size of the learning steps we take. 
@@ -187,14 +187,14 @@ Neural networks consist of:
 \end{figure}
 
 
-We can create our model discussed in section \ref{matrixFactorization}, using a neural network, making the model more robust. The user and and items feature matrices are flattened and concatenated to form our input layer. Then a fully connected hidden layer, that is each node in the hidden layer is connected to every node of the input layer. The hidden layer uses a ReLU activation function \cite{li2017convergence}. Lastly, an output layer with one node that we use to calculate our loss function. Each node also have a bias value that is added in the activation function calculation.
+We can create our model discussed in section \ref{matrixFactorization}, using a neural network, making the model more robust. The user and and items feature matrices are flattened and concatenated to form our input layer. Then a fully connected hidden layer, that is each node in the hidden layer is connected to every node of the input layer. The hidden layer uses a ReLU activation function \cite{li2017convergence}. Lastly, an output layer with one node that we use to calculate our loss function. Each node also have a bias value that is added in the activation function calculation. The approach used hear was based of a lecture from Jeremy Howard \cite{jeremy2016deep}.
 
 \subsection{Preventing over-fitting}
 One of the main problems with machine learning approaches is over-fitting and under fitting.
 
 \paragraph{Under-fitting} is a problem that occurs when the model does not fit the data it's trained on. This happens when not enough iterations has been performed during training making our loss function value worse.
 
-\paragraph{Over-fitting} is when our model is trained to match to perfectly with our training data-set and therefore has a hard time to predict when we have a completely new data. To prevent this in Neural Networks. Drop out layers kill random nodes in our neural network during each epoch. This forces the neural network to always try and learn new paths to during training preventing it form relying on the same weights each time.
+\paragraph{Over-fitting} is when our model is trained to match to perfectly with our training data-set and therefore has a hard time to predict when we have a completely new data. To prevent this in Neural Networks we can add a dropout layer to the neural network. Drop out layers kill random nodes in our neural network during each epoch. This forces the neural network to always try and learn new paths to during training preventing it form relying on the same weights each time.
 
 \begin{figure}[ht]
     \centering
@@ -211,7 +211,7 @@ One of the main problems with machine learning approaches is over-fitting and un
     \label{fig:dropoutLayer}
 \end{figure}
 \section{Tensorflow and Python}
-There are a few machine learning platforms that can help us to create our neural network. I decided to use Tensorflow because it is popular and has a big community to help. It also is built with keras which allows you to create these models from a High Level. Tensor flow also has C++ bindings that takes use of the GPU for the matrix which is far more efficient than using a normal CPU and so is quicker for handling large datasets.
+There are a few machine learning platforms that can help us to create our neural network. I decided to use Tensorflow because it is popular and has a big community to help. It also is built with keras which allows you to create these models from a High Level. Tensor flow also has C++ bindings that takes use of the GPU for the matrix which is far more efficient than using a normal CPU and so is quicker for handling large data-sets.
 
 Tensorflow is mainly meant to be used in python as python is the main language for Data Science. This proved to be a problem initially as I did not know python. Although Tensorflow also provides a JavaScript library\footnote{https://www.tensorflow.org/js}, I chose to use the python version as the JavaScript library did not provide all the functionality of the main python library. It also allowed me to use Jupyter Notebook (discussed in section \ref{jupyterNotebook}) which provided a really platform to experiment with the machine learning model.
 
@@ -223,7 +223,7 @@ Tensorflow is mainly meant to be used in python as python is the main language f
 \end{figure}
 
 \subsection{Jupyter Notebook} \label{jupyterNotebook}
-Jupyter Notebook\footnote{https://jupyter.org/} that allows creating and running notebooks via a web appplication. These documents can contain both Markup text and more importantly code that is exists in cells on the document. The document allows you to easily share any code with others easily as it make's it straightforward to document. With it's use of cells, you can rerun individual blocks of code with running the entire document, making it easy to develop and iterate through different versions as you improve.
+Jupyter Notebook\footnote{https://jupyter.org/} that allows creating and running notebooks via a web application. These documents can contain both Markup text and more importantly code that is exists in cells on the document. The document allows you to easily share any code with others easily as it make's it straightforward to document. With it's use of cells, you can rerun individual blocks of code with running the entire document, making it easy to develop and iterate through different versions as you improve.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{jupyter-notebook.png}

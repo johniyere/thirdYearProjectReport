@@ -83,13 +83,16 @@ We then use this like value to calculate the rating by using the equation \ref{e
 
 We then use these generated ratings to help train our machine learning model. With tensor flow we can get our final \acrshort{mse} and root it to get our \acrfull{rmse}, the standard for comparing how good the Recommender system machine learning models are.
 
+The overall \acrshort{rmse} I achieved after training the model for 18 epochs is $0.9248$.
+
 \subsection{Movie Lens Data-set}
-Another way to test the system is to use an already existing data-set. One of the benefits of Recommender systems is that it can be applied to any generic user-item ratings matrix. Hence although we may not be able to find an already existing user-route ratings matrix, we can use another user-item ratings matrix to test it.
+One of the problems of using a generated is that you have no standard to compare to. Another way to test the system is to use an already existing data-set. One of the benefits of Recommender systems is that it can be applied to any generic user-item ratings matrix. Hence although we may not be able to find an already existing user-route ratings matrix, we can use another user-item ratings matrix to test it.
 
-The dataset that I used is a popular dataset of user-movies ratings called the Movie lens Dataset\footnote{https://grouplens.org/datasets/movielens/}. The best thing about using this data set is that there are other online recommender systems that have been tested on this dataset that we can compare our \acrshort{rmse} score against\footnote{https://www.kaggle.com/learn/overview}\footnote{https://www.librec.net/release/v1.3/example.html}.
+The data-set that I used is a popular data-set of user-movies ratings called the Movie lens Data-set\footnote{https://grouplens.org/datasets/movielens/}. The best thing about using this data set is that there are other online recommender systems that have been tested on this data-set that we can compare our \acrshort{rmse} score against.
 
-Create another model that is trained on our movie lens dataset based on the exact same code as the one for our original neural network model.
+Create another model that is trained on our movie lens data-set based on the exact same code as the one for our original neural network model.
 
+The final \acrshort{rmse} scores reached after 4 epochs $0.7836$ which beats the scores used in the lens kit Recommender systems\footnote{https://www.librec.net/release/v1.3/example.html}, and as of writing this report is one of the top scores on a kaggle Recommender system competition\footnote{https://www.kaggle.com/learn/overview}.
 \section{Manual Testing}
 
 \subsection{GraphQL Dev Tools}
@@ -112,6 +115,4 @@ NgRx comes with dev tools as shown in figure \ref{fig:reduxDevTools}. It allows 
 
 
 \section{Unit and Integration Testing}
-To test the front-end we follow a standard industry methods of creating both unit tests and integration tests. Angular comes built with the Jasmine Testing framework, a JavaScript behaviour driven framework. Jasmine also use Karma, that allows us to run the tests on the browser.
-
-Angular also provides Protractor for end to end testing on the front end
+To test the front-end we follow a standard industry methods of creating both unit tests and integration tests. Angular comes built with the Jasmine Testing framework, a JavaScript behaviour driven framework. Jasmine also use Karma, that allows us to run the tests on the browser. Angular also provides Protractor for end to end testing on the front end

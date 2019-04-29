@@ -1,0 +1,74 @@
+type User {
+  id: ID! @unique
+  email: String! @unique
+  name: String!
+  createdRoutes: [Route!]! @relation(name: "CreatedRoutes", onDelete: CASCADE)
+  runs: [Run!]! @relation(name: "UserRuns", onDelete: CASCADE)
+  reviews: [Review!]! @relation(name: "UserReviews", onDelete: CASCADE)
+  userType: ModelType @relation(name: "UserTypes", onDelete: CASCADE)
+  following: [User!]! @relation(name: "FollowRelation")
+  followers: [User!]! @relation(name: "FollowRelation")
+  bookmarkedTrails: [Route!]! @relation(name: "BookmarkedTrails")
+}
+
+type Route {
+  id: ID! @unique
+  name: String!
+  creator: User! @relation(name: "CreatedRoutes", onDelete: SET_NULL)
+  points: [Point!]! @relation(name: "RoutePoints", onDelete: CASCADE)
+  lines: [Line!]! @relation(name: "RouteLines", onDelete: CASCADE)
+  runs: [Run!]! @relation(name: "RouteRuns", onDelete: CASCADE)
+  reviews: [Review!]! @relation(name: "RouteReviews", onDelete: CASCADE)
+  description: String
+  routeType: ModelType @relation(name: "RouteTypes", onDelete: CASCADE)
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  avgRating: Float
+}
+
+type Point {
+  id: ID! @unique
+  coordinates: Coordinates! @relation(name: "PointCoordinates", onDelete: CASCADE)
+  elevation: Float!
+  distanceFromPreviousPoint: Float
+  route: Route @relation(name: "RoutePoints")
+}
+
+type Line {
+  id: ID! @unique
+  points: [Point!]! @relation(name: "LinePoints", onDelete: CASCADE)
+  route: Route! @relation(name: "RouteLines")
+}
+
+type Coordinates {
+  id: ID! @unique
+  lng: Float!
+  lat: Float!
+}
+
+type Run {
+  id: ID! @unique
+  title: String
+  comment: String
+  route: Route! @relation(name: "RouteRuns", onDelete: SET_NULL)
+  uploader: User! @relation(name: "UserRuns", onDelete: SET_NULL)
+  createdAt: DateTime!
+  time: Int
+}
+
+type Review {
+  id: ID! @unique
+  rating: Float!
+  reviewer: User! @relation(name: "UserReviews", onDelete: SET_NULL)
+  route: Route! @relation(name: "RouteReviews", onDelete: SET_NULL)
+  createdAt: DateTime!
+  comment: String
+}
+
+type ModelType {
+  id: ID! @unique
+  terrain: Int
+  elevation: Int
+  distance: Int
+  scenary: Int
+}
