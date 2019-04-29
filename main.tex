@@ -20,10 +20,10 @@
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
-\title{Offroads: A Trail Running Website}
-\author{John Omokhodion Iyere }
+% \title{Offroads: A Trail Running Website}
+% \author{John Omokhodion Iyere }
 
-\date{April 2019}
+% \date{April 2019}
 
 \makeglossaries
 
@@ -31,28 +31,29 @@
 
 \begin{document}
 
-\maketitle
+% \maketitle
+\input{titlepage.tex}
 \include{-1Abstract}
 \include{0Acknowledgements}
-\tableofcontents
+
+\printglossary
+\printglossary[type=\acronymtype]
+
+{\small \tableofcontents}
 \listoffigures
 \listoftables
 \listoflistings
 
 \newpage
 
-\include{1Context}
+\include{1Introduction}
 \include{2Background}
-\include{2TrailInterface}
-\include{3Architecture}
-\include{4Recommender}
-\include{5Evaluation}
-\include{6Reflections}
-\include{7Conclusion}
-
-
-\printglossary
-\printglossary[type=\acronymtype]
+\include{3TrailInterface}
+\include{4Architecture}
+\include{5Recommender}
+\include{6Evaluation}
+\include{7Reflections}
+\include{8Conclusion}
 
 \printbibliography[heading=bibintoc]
 
